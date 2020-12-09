@@ -22,7 +22,10 @@ RUN apt-get install -y qt5-default libqt5opengl5-dev libqt5svg5-dev libqt5xmlpat
 RUN apt-get install -y /pygplates-ubuntu-focal_2.2_1_amd64.deb
 RUN rm /pygplates-ubuntu-focal_2.2_1_amd64.deb
 
-Run apt-get install -y gmt gmt-gshhg
+RUN apt-get install -y gmt gmt-gshhg
+
+RUN apt-get install -y git-all
+RUN pip3 install --no-cache-dir --upgrade git+https://github.com/EarthByte/PlateTectonicTools
 
 ENV PYTHONPATH ${PYTHONPATH}:/usr/lib:/usr/lib/pygplates/revision28
 
