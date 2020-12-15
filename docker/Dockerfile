@@ -16,7 +16,7 @@ RUN pip3 install --no-cache-dir cartopy notebook h5py pyshp healpy netCDF4 sciki
 
 #install pygplates
 RUN apt-get update -y
-ADD ./pygplates-ubuntu-focal_2.2_1_amd64.deb /pygplates-ubuntu-focal_2.2_1_amd64.deb
+RUN wget https://www.earthbyte.org/webdav/ftp/earthbyte/GPlates/pygplates/pygplates-ubuntu-focal_2.2_1_amd64.deb -O /pygplates-ubuntu-focal_2.2_1_amd64.deb
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -y install tzdata
 RUN apt-get install -y qt5-default libqt5opengl5-dev libqt5svg5-dev libqt5xmlpatterns5-dev libqwt-qt5-dev
 RUN apt-get install -y /pygplates-ubuntu-focal_2.2_1_amd64.deb
