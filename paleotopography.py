@@ -33,8 +33,8 @@ def add_reconstructed_points_to_xyz(points_file,rotation_model,reconstruction_ti
     reconstructed_points = []
     pygplates.reconstruct(points_file,rotation_model,reconstructed_points,reconstruction_time)
     
-    #mask_file = './OrogenMasks.gpml'
-    mask_file = None
+    mask_file = './OrogenMasks.gpml'
+    #mask_file = None
     if mask_file is not None:
         reconstructed_masks = []
         pygplates.reconstruct(mask_file,rotation_model,reconstructed_masks,reconstruction_time)
@@ -247,8 +247,8 @@ def paleotopography_job(reconstruction_time, paleogeography_timeslice_list,
 
     # sample the land/marine points onto the points within the COB Terranes
     # This will fill the gaps that exist within continents, and average out overlaps
-    d,l = sampleOnSphere(pg_point_array[:,1],pg_point_array[:,0],pg_point_array[:,2],
-                         np.array(lon),np.array(lat),n=1)
+    d,l = sampleOnSphere(pg_point_array[:,0],pg_point_array[:,1],pg_point_array[:,2],
+                         np.array(lat),np.array(lon),n=1)
 
     land_marine_interp_points = pg_point_array[:,2].ravel()[l]
 
@@ -331,8 +331,8 @@ def paleotopography_job(reconstruction_time, paleogeography_timeslice_list,
     # interpolate the elevations at tr onto the regular long lat points that we will ultimately use 
     # for the grid output
     # note the k value here controls number of neighbouring points used in inverse distance average
-    d,l = sampleOnSphere(mountains_tr_point_array[:,1], mountains_tr_point_array[:,0], normalized_mountain_elevation,
-                         np.array(lon), np.array(lat), k=4)
+    d,l = sampleOnSphere(mountains_tr_point_array[:,0], mountains_tr_point_array[:,1], normalized_mountain_elevation,
+                         np.array(lat), np.array(lon), k=4)
     w = 1./d**2
     normalized_mountain_elevation_interp_points = np.sum(w * normalized_mountain_elevation.ravel()[l],axis=1) / np.sum(w,axis=1)
 
@@ -399,7 +399,7 @@ def paleotopography_job(reconstruction_time, paleogeography_timeslice_list,
 
         # get index for grid nodes where age grid is nan, replace values with topography/shallow bathymetry
         land_or_ocean_precedence = 'land'
-        if land_or_ocean_precedence is 'ocean':
+        if land_or_ocean_precedence == 'ocean':
             not_bathy_index = np.isnan(paleodepth)
             paleodepth[not_bathy_index] = topoZ[not_bathy_index]
         else:

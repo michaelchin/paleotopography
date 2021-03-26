@@ -90,7 +90,7 @@ def sampleOnSphere(inputLats, inputLons, inputVals, othetas, ophis, tree=None, n
     othetas = np.radians(90-othetas)
     ophis   = np.radians(ophis)
     oxyzs=rtp2xyz(np.ones(np.shape(othetas)), othetas, ophis)
-
+    
     d,l = tree.query(oxyzs, k=k)
 
     return d,l
